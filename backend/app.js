@@ -1,14 +1,16 @@
 // Importation d'express et de mongoose
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
 
-// Création d'une application express
+// Lancement de l'application express
 const app = express();
 
-// Connexion de l'API à la base de données
-mongoose.connect('mongodb+srv://LucileBch:4987@cluster0.kbrdrtp.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
+// Connexion de l'API à la base de données de manière sécurisée
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+    })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
