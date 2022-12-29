@@ -1,18 +1,23 @@
-// Importation d'express et de mongoose
+// Importation d'express, de mongoose et dotenv
 const express = require('express');
 const mongoose = require('mongoose');
+
+// Security
 const dotenv = require('dotenv').config();
+
+const userRoutes = require('./routes/user');
+
+
+// Connexion de l'API à la base de données 
+mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`,
+   { useNewUrlParser: true,
+     useUnifiedTopology: true })
+   .then(() => console.log('Connexion à MongoDB réussie !'))
+   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 // Lancement de l'application express
 const app = express();
-
-// Connexion de l'API à la base de données de manière sécurisée
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-    })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+app.use(express.json());
 
 // Middleware permettant les requêtes cross-origins
 app.use((req, res, next) => {
@@ -22,15 +27,7 @@ app.use((req, res, next) => {
     next();
   });
 
-//Middleware test
-app.use((req, res, next) => {
-    res.json({ message: 'Votre requête a bien été reçue !' });
-    next();
-  });
-  
-  app.use((req, res, next) => {
-    console.log('Réponse envoyée avec succès !');
-  });
+  app.use('/api/auth', userRoutes);
 
 // Exportation de l'application pour l'exploiter à partir d'autres fichiers
 module.exports = app;
