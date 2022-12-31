@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 // Security
 const dotenv = require('dotenv').config();
 
+// Importation des router user et sauce
 const userRoutes = require('./routes/user');
-
+const sauceRoutes = require('./routes/sauce');
+const path = require('path');
 
 // Connexion de l'API à la base de données 
 mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`,
@@ -27,7 +29,10 @@ app.use((req, res, next) => {
     next();
   });
 
-  app.use('/api/auth', userRoutes);
+// Enregistrement des routes pour les users, les sauces et les images
+app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Exportation de l'application pour l'exploiter à partir d'autres fichiers
 module.exports = app;
