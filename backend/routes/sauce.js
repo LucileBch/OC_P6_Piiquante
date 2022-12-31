@@ -10,10 +10,10 @@ const router = express.Router();
 
 // Création des routes
 router.post('/', auth, multer, sauceCtrl.createSauce);
-// router.put('/:id', sauceCtrl.modifySauce);
-// router.delete('/:id', sauceCtrl.deleteSauce);
-// router.get('/:id', sauceCtrl.getOnSauce);
-// router.get('/', sauceCtrl.getAllSauce);
+router.put('/:id', auth, multer, sauceCtrl.modifySauce);
+//router.delete('/:id', auth, sauceCtrl.deleteSauce);
+router.get('/:id', auth, sauceCtrl.getOneSauce);
+router.get('/', auth, sauceCtrl.getAllSauce);
 
 
 // Exportation du router
