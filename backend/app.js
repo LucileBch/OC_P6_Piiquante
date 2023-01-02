@@ -1,8 +1,9 @@
+// ------------ APPLICATION ------------
 // Importation d'express, de mongoose et dotenv
 const express = require('express');
 const mongoose = require('mongoose');
 
-// Security
+// Securité
 const dotenv = require('dotenv').config();
 
 // Importation des router user et sauce
@@ -17,7 +18,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${pro
    .then(() => console.log('Connexion à MongoDB réussie !'))
    .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-// Lancement de l'application express
+// Création et lancement de l'application express
 const app = express();
 app.use(express.json());
 
