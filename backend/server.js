@@ -1,6 +1,9 @@
+// ------------ SERVEUR NODE ------------
+// Importation du package http node et de l'application
 const http = require('http');
 const app = require('./app');
 
+// Fonction normalizePort renvoyant un port valide sous forme de chaîne ou numéro
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -13,8 +16,11 @@ const normalizePort = val => {
   return false;
 };
 const port = normalizePort(process.env.PORT || '3000');
+
+// Indication du port surlequel l'application va tourner
 app.set('port', port);
 
+// Fonction qui cherche et gère les différents types d'erreurs
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -35,8 +41,10 @@ const errorHandler = error => {
   }
 };
 
+// Création du serveur en lui passant l'application comme argument
 const server = http.createServer(app);
 
+// Ecouteur d'évènement en lui consignant le port qui est écouté
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
