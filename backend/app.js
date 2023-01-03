@@ -1,10 +1,12 @@
 // ------------ APPLICATION ------------
-// Importation d'express, de mongoose et dotenv
+// Importation d'express et de mongoose
 const express = require('express');
 const mongoose = require('mongoose');
 
 // Securité
 const dotenv = require('dotenv').config();
+const morgan = require('morgan');
+const helmet = require('helmet');
 
 // Importation des router user, sauce et path
 const userRoutes = require('./routes/user');
@@ -20,7 +22,11 @@ mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${pro
 
 // Création et lancement de l'application express
 const app = express();
+
 app.use(express.json());
+
+app.use(morgan('dev'));
+
 
 // Middleware permettant les requêtes cross-origins
 app.use((req, res, next) => {
@@ -34,6 +40,6 @@ app.use((req, res, next) => {
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
-
+app.use(helmet());
 // Exportation de l'application pour l'exploiter à partir d'autres fichiers
 module.exports = app;
