@@ -1,7 +1,14 @@
+//------------ LOGIQUE METIER USER ------------
+// Importation de bcrypt, de jsonwebtoken et du modèle User
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+// Exportation de la fonction Signup
+// Fonction asynchrone pour crypter le password du corps de la requête
+// Récupération du password hashé
+// Enregistrement du User dans la database
+// Catch pour capter l'erreur serveur
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -16,6 +23,13 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
+// Exportation de la fonction Login
+// Vérification de l'identité du client
+// Récupération et vérification de l'existance du User dans la database
+// Vérification de la validité du password transmis par le client
+    // Password incorrect : message d'erreur
+    // Password correct : retour d'un objet avec l'ID et le token
+// Erreur serveur
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {

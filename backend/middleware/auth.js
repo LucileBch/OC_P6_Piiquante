@@ -2,10 +2,10 @@
 // Importation de jsonwebtoken
 const jwt = require('jsonwebtoken');
 
-// Export de la fonction
+// Exportation de la fonction
 // Récupération du token en enlevant la première partie bearer
 // Décodage du token avec la méthode verify en lui passant le token et la clé secrète
-// Récupération du userId qui est ajouté à l'objet request
+// Récupération du userId qui est ajouté à l'objet request qui est transmis aux routes appelées par la suite
 // Gestion des erreurs avec catch
 module.exports = (req, res, next) => {
    try {

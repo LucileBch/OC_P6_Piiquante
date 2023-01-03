@@ -6,6 +6,10 @@ const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
 // Exportation fonction création sauce
+// Parser l'objet requête
+// Suppression les champs id et userId du corps de la requête
+// Création de la nouvelle sauce en extrayant le userId du middleware auth et en créan l'URL de l'image
+// Enregistrement de la sauce dans la base de données avec renvoie d'une réponse au frontend
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
@@ -22,6 +26,14 @@ exports.createSauce = (req, res, next) => {
  };
 
 // Exportation fonction modification d'une sauce
+// Extraction objet et analyse présence champ file
+    // Si oui => parser
+    // Si non => récupération de l'objet dans le corps de la requête
+// Suppression du userId du corps de la requête
+// Recupération de la sauce dans la base de donnée
+    // Cas de succès et userId non valide => renvoie erreur
+    // Cas de succès et userId valide => updateOne en comparant la sauce dans la DB avec celle de la requête + réponse OK ou erreur
+    // Cas d'erreur
 exports.modifySauce = (req, res, next) => {
     const sauceObject = req.file ? {
         ...JSON.parse(req.body.sauce),
@@ -59,6 +71,10 @@ exports.getOneSauce = (req, res, next) => {
   };
 
 // Exportation fonction suppression d'une sauce
+// Vérification des droits utilisateurs en récupérant de la sauce
+    // Vérification de l'userId
+    // Suppression de l'objet de la database et l'image du système de fichiers
+// Gestion des cas d'erreurs
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id})
         .then(sauce => {
@@ -77,3 +93,6 @@ exports.deleteSauce = (req, res, next) => {
             res.status(500).json({ error });
         });
  };
+
+ // Exportation fonction like/dislike d'une sauce
+ 

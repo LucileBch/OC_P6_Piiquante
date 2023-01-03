@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 // Securité
 const dotenv = require('dotenv').config();
 
-// Importation des router user et sauce
+// Importation des router user, sauce et path
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 const path = require('path');
