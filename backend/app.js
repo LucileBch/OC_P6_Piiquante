@@ -10,6 +10,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 
+
 // Importation des router user, sauce et path
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
@@ -43,6 +44,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(mongoSanitize());
+
 
 // Limite de requêtes à 100 toutes les 15 minutes
 const limiter = rateLimit ({
