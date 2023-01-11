@@ -1,6 +1,7 @@
 //------------ MODELE DE DONNEES SAUCE ------------
 // Importation de mongoose
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 // Définition du schéma de données
 const sauceSchema = mongoose.Schema({
@@ -17,6 +18,7 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: { type: [String], required: false, default: [] },
 });
 
+sauceSchema.plugin(mongodbErrorHandler);
+
 // Exportation de sauceSchéma avec la méthode model
-// Arguments : le nom du modèle, le nom du schéma
 module.exports = mongoose.model('Sauce', sauceSchema);

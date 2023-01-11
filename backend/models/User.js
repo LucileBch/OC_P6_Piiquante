@@ -2,6 +2,7 @@
 // Importation de mongoose et de unique-validator
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 // Définition du schéma de données
 const userSchema = mongoose.Schema({
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
 
 // Plugin pour ne pouvoir utiliser une adresse email unique pour la création de compte
 userSchema.plugin(uniqueValidator);
+userSchema.plugin(mongodbErrorHandler);
 
 // Exportation de sauceSchéma avec la méthode model
-// Arguments : le nom du modèle, le nom du schéma
 module.exports = mongoose.model('User', userSchema);

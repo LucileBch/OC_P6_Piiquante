@@ -28,7 +28,6 @@ mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_MDP}@${pro
 
 // Création et lancement de l'application express
 const app = express();
-
 app.use(express.json());
 
 // Securité
